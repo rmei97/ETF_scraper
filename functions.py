@@ -2,6 +2,13 @@
 # coding: utf-8
 
 # In[ ]:
+import matplotlib.pyplot as plt
+import sqlite3
+import pandas as pd
+import numpy as np
+
+from fbprophet import Prophet
+
 
 
 def del_table(cursor, name):

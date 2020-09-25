@@ -23,7 +23,7 @@ c = conn.cursor()
 results = {}
 
 #look through the database and run a prophet model to find lowest error
-for t in listdir('./data')[:5]:
+for t in listdir('./data'):
     ticker, ext = t.split('.')
 
     if ext != 'csv':

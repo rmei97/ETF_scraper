@@ -30,6 +30,9 @@ for t in listdir('./data'):
         continue
     try:
         fetch = retrieve(c,ticker)
+        if len(fetch) < 50:
+            fail_batch.append(ticker)
+            continue
         error, forecast, summary = prophetize(fetch,4)
         results[ticker] = error
 
@@ -47,3 +50,4 @@ out = [key for key in results if results[key] == min_error]
 print('Tickers of interest: ', out)
 print('With the lowest error of: ', min_error)
 print('Failed batches at :', fail_batch)
+

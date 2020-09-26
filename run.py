@@ -21,19 +21,22 @@ c = conn.cursor()
 
 #erros dict for 
 results = {}
-
+fail_batch = []
 #look through the database and run a prophet model to find lowest error
 for t in listdir('./data'):
     ticker, ext = t.split('.')
 
     if ext != 'csv':
         continue
+    try:
+        fetch = retrieve(c,ticker)
+        error, forecast, summary = prophetize(fetch,4)
+        results[ticker] = error
 
-    fetch = retrieve(c,ticker)
+    except TypeError:
+        fail_batch.append(ticker)
+        continue
 
-    error, forecast, summary = prophetize(fetch,4)
-
-    results[ticker] = error
     print('-next iter-')
 
 #find the min error and the resulting key value pair
@@ -43,3 +46,4 @@ out = [key for key in results if results[key] == min_error]
 #see the tickers associated with the lowest RMSE
 print('Tickers of interest: ', out)
 print('With the lowest error of: ', min_error)
+print('Failed batches at :', fail_batch)

@@ -16,10 +16,20 @@ app = Flask(__name__)
 #     app.run()
 
 
-
 @app.route("/")
-def home():
-    return render_template('home.html')	
+# def home():
+#     return render_template('home.html')	
+
+def contact():
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'Do Something':
+            render_template('about.html') # do something
+        elif request.form['submit_button'] == 'Do Something Else':
+            print('do something else') # do something else
+        else:
+            print('sometung something else') # unknown
+    elif request.method == 'GET':
+        return render_template('home.html')
 
 @app.route("/salvador")
 def salvador():

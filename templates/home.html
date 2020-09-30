@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<!--ex from stack overflow-->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dropdown</title>
-</head>
-<body>
-<input type="submit" name="submit_button" value="Do Something">
-<input type="submit" name="submit_button" value="Do Something Else">
+{% extends 'base.html' %}
 
+{% block body %}
+<t4>
+	Model
+</t4>
+<form action="/run" method="POST">
+    <button name="forwardBtn" type="submit">Run</button>
+</form>
 
-</select>
-</body>
-</html>
+{% endblock %}

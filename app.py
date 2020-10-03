@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request
 from functions import *
+import seaborn as sns
 
 from os import listdir, chdir
 
@@ -30,9 +31,10 @@ app = Flask(__name__)
 #     app.run()
 
 
-@app.route("/")
+@app.route("/", methods = ['GET'])
 def home():
-    return render_template('home.html')	
+	tickers = open('tickers.txt','r').read()
+	return render_template('home.html',ETFs = tickers)	
 
 @app.route("/run", methods = ['POST','GET'])
 def run():
@@ -63,18 +65,25 @@ def run():
         print('-next iter-')
 
     #find the min error and the resulting key value pair
-    min_error =format(min(results.values()),'.4f')
+    min_error = min(results.values())
+    min_error_rounded =format(min(results.values()),'.4f')
     out = [key for key in results if results[key] == min_error]
 
-    return render_template('model.html', out=out, min_error = min_error)
+    return render_template('model.html', out=out, min_error = min_error_rounded)
 #see the tickers associated with the lowest RMSE
     # print('Tickers of interest: ', out)
     # print('With the lowest error of: ', min_error)
     # print('Failed batches at :', fail_batch)
 
-@app.route("/salvador")
-def salvador():
-    return "Hello, Salvador"
+@app.route("/{ETF}")
+def visualize(ETF):
+	conn = sqlite3.connect('ETF.db')
+	c = conn.cursor()
+
+	data = retrieve(c,etf)
+	graph = sns.lineplot(data['Date'],data['Open'])
+
+	return render_template('visualizations.html',data = data, graph = graph)
 
 @app.route("/about")
 def about():

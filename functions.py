@@ -28,14 +28,14 @@ def insert(cursor, name, values):
     
     cursor.execute(query, values)
 
-def retrieve(c,name):
-    query = """SELECT * FROM {}""".format(name) + ";"
-    c.execute(query)
+# def retrieve(c,name):
+#     query = """SELECT * FROM {}""".format(name) + ";"
+#     c.execute(query)
     
-    rows = c.fetchall()
+#     rows = c.fetchall()
     
-    for row in rows[:5]:
-        print(row)
+#     for row in rows[:5]:
+#         print(row)
 
 
 # In[ ]:

@@ -2,7 +2,10 @@
 
 {% block body %}
 
-<p>We end up getting these ETF(s) to be modeled with the least error {{ out }}
+<p>We end up getting these ETF(s) to be modeled with the least error: 
+	{% for x in out %}
+	<br>{{ x }}
+	{% endfor %}
 <br>With the lowest error of {{ min_error }}
 </p>
 

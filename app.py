@@ -4,6 +4,8 @@ import seaborn as sns
 
 from os import listdir, chdir
 
+import json
+
 import matplotlib.pyplot as plt
 import sqlite3
 import pandas as pd
@@ -33,7 +35,10 @@ app = Flask(__name__)
 
 @app.route("/", methods = ['GET'])
 def home():
-	tickers = open('tickers.txt','r').read()
+	# need to format the tickers so they are actual chars
+	with open('tickers.txt') as file:
+		tickers = json.load(file)
+		
 	return render_template('home.html',ETFs = tickers)	
 
 @app.route("/run", methods = ['POST','GET'])

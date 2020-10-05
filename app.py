@@ -33,12 +33,15 @@ app = Flask(__name__)
 #     app.run()
 
 
-@app.route("/", methods = ['GET'])
+@app.route("/", methods = ['POST','GET'])
 def home():
 	# need to format the tickers so they are actual chars
+	# if request.method == 'POST':
+	# 	selection = 
+	# elif request.method == 'GET':
 	with open('tickers.txt') as file:
 		tickers = json.load(file)
-		
+
 	return render_template('home.html',ETFs = tickers)	
 
 @app.route("/run", methods = ['POST','GET'])

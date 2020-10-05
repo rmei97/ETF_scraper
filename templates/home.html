@@ -10,12 +10,14 @@
 <br>
 <br>
 
+Pick a stock to visualize.
+<br>
 <select name= ETFs method="GET" action="/">
     {% for ETF in ETFs %}
     <option value= "{{ETF}}" SELECTED>{{ ETF }}</option>"
     {% endfor %}
+    
 </select>
-
-</select>
+<input type="submit" value="Submit">
 
 {% endblock %}
